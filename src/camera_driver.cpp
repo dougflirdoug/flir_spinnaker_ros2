@@ -457,7 +457,8 @@ void CameraDriver::publishImage(const ImageConstPtr & im)
 
 void CameraDriver::run()
 {
-  while (keepRunning_ && rclcpp::ok()) {
+  while (keepRunning_ && rclcpp::ok()) 
+  {
     {
       ImageConstPtr img;
       {  // ------- locked section ---
@@ -482,11 +483,18 @@ void CameraDriver::run()
 static std::string flir_to_ros_encoding(
   const flir_spinnaker_common::pixel_format::PixelFormat & pf)
 {
+  std::cout << pf << std::endl;
   switch (pf) {
     case flir_spinnaker_common::pixel_format::BayerRG8:
       return (sensor_msgs::image_encodings::BAYER_RGGB8);
       break;
+    case flir_spinnaker_common::pixel_format::BGR8:
+      return (sensor_msgs::image_encodings::BGR8);
+      break;
     case flir_spinnaker_common::pixel_format::RGB8:
+      return (sensor_msgs::image_encodings::RGB8);
+      break;
+    case flir_spinnaker_common::pixel_format::RGB8Packed:
       return (sensor_msgs::image_encodings::RGB8);
       break;
     case flir_spinnaker_common::pixel_format::Mono8:
